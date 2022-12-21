@@ -15,9 +15,13 @@ jobs:
           java-version: '17'
       - name: Run tests
         run: mvn test
-      - name: Generate Docker image
-        run: mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/items:v1
-      - name: Login to DockerHub
-        run: docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}" 
-      - name: Push image to DockerHub
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/items:v1
+      - name: Set up Node 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install Railway CLI
+        run: npm i -g @railway/cli
+      - name: Deploy
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
