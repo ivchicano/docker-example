@@ -1,4 +1,4 @@
-name: Publish in DockerHub
+name: Deploy in Railway
 
 on:  
   workflow_dispatch:
