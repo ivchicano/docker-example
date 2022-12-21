@@ -24,6 +24,7 @@ public class ItemsController {
 
 	@GetMapping("/")
 	public Collection<Item> items() {
+		System.out.println("Here");
 		return items.getAllItems();
 	}
 
